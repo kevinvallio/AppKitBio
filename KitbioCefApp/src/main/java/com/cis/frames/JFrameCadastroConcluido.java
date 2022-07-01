@@ -5,6 +5,7 @@
 package com.cis.frames;
 
 import static com.cis.frames.JFrameInserirCpf.cpf;
+import com.cis.frames.JFrameInserirCpf;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -21,15 +22,30 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
      */
     public JFrameCadastroConcluido() {
         initComponents();
-        setTexts();
+        setTexts(false); //Alterar para metodo de verificacao da Caixa
     }
-    
-    public void setTexts() {
+    /**
+     * Parametro precisa ser alterado para a forma de verificacao da Caixa
+     * @param args 
+     */
+    public void setTexts(boolean args) {
         
         textResultado = "EXIBIR MENSAGEM DE RETORNO DO SIABM.";
         textFuncionalidades = "Para mais funcionalidades e informações, acesse <font color='blue'><u>https://biometria.caixa</u></font> ou consulte o MN AD178.";
-        jResultadoText.setBorder(new EmptyBorder(0, 20, 0, 0));
-        jResultadoText.setText("<html>" + textResultado + "</html>");
+        
+        if(args == false){
+            jResultadoText.setBackground(new java.awt.Color(197,224,180));
+            jResultadoText.setForeground(new java.awt.Color(56,87,35));
+            jResultadoText.setBorder(new EmptyBorder(0, 20, 0, 0));
+            jResultadoText.setText("<html>" + textResultado + "</html>");
+        }
+        else{
+            jResultadoText.setBackground(new java.awt.Color(224,180,180));
+            jResultadoText.setForeground(new java.awt.Color(87,35,35));
+            jResultadoText.setBorder(new EmptyBorder(0, 20, 0, 0));
+            jResultadoText.setText("<html>" + textResultado + "</html>");
+        }
+        
         jMaisFuncionalidades.setBorder(new EmptyBorder(0, 20, 0, 0));
         jMaisFuncionalidades.setText("<html>" + textFuncionalidades + "</html>");
         jNumeroCPFText.setText("CPF:" + cpf);
@@ -60,6 +76,7 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
         jResultadoText = new javax.swing.JLabel();
         jMaisFuncionalidades = new javax.swing.JLabel();
         jNumeroCPFText = new javax.swing.JLabel();
+        jButtonNovoCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,9 +165,9 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
         jTelaText.setForeground(new java.awt.Color(108, 176, 191));
         jTelaText.setText("Você está em: Incluir e Atualizar Cadastro > Cadastro Concluído");
 
-        jResultadoText.setBackground(new java.awt.Color(197, 224, 180));
+        jResultadoText.setBackground(new java.awt.Color(224, 180, 180));
         jResultadoText.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jResultadoText.setForeground(new java.awt.Color(56, 87, 35));
+        jResultadoText.setForeground(new java.awt.Color(87, 35, 35));
         jResultadoText.setText("Frase");
         jResultadoText.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jResultadoText.setOpaque(true);
@@ -166,17 +183,36 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
         jNumeroCPFText.setForeground(new java.awt.Color(204, 204, 204));
         jNumeroCPFText.setText("CPF: 000.000.000-00");
 
+        jButtonNovoCadastro.setBackground(new java.awt.Color(249, 176, 0));
+        jButtonNovoCadastro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonNovoCadastro.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonNovoCadastro.setText("Novo Cadastro");
+        jButtonNovoCadastro.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton1.setContentAreaFilled(false);
+        jButtonNovoCadastro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonNovoCadastroMouseClicked(evt);
+            }
+        });
+        jButtonNovoCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoCadastroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jMaisFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 1324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jResultadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 1324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTelaText)
-                    .addComponent(jNumeroCPFText))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonNovoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jMaisFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 1324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jResultadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 1324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTelaText)
+                        .addComponent(jNumeroCPFText)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,7 +226,9 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
                 .addComponent(jResultadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jMaisFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addComponent(jButtonNovoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,6 +265,20 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
         login.setSize(360, 430);
         login.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonNovoCadastroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNovoCadastroMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNovoCadastroMouseClicked
+
+    private void jButtonNovoCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoCadastroActionPerformed
+        // TODO add your handling code here:
+
+        this.setVisible(false);
+
+        JFrameInserirCpf cpfFrame = new JFrameInserirCpf();
+        cpfFrame.setSize(1366,768);
+        cpfFrame.setVisible(true);
+    }//GEN-LAST:event_jButtonNovoCadastroActionPerformed
 
     
     
@@ -268,6 +320,7 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBackground;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonNovoCadastro;
     private javax.swing.JLabel jCamera;
     private javax.swing.JLabel jDataText;
     private javax.swing.JLabel jFooter;

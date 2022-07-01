@@ -241,11 +241,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jMaisFuncionalidades" min="-2" pref="1324" max="-2" attributes="0"/>
-                      <Component id="jResultadoText" min="-2" pref="1324" max="-2" attributes="0"/>
-                      <Component id="jTelaText" min="-2" max="-2" attributes="0"/>
-                      <Component id="jNumeroCPFText" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jButtonNovoCadastro" min="-2" pref="301" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jMaisFuncionalidades" min="-2" pref="1324" max="-2" attributes="0"/>
+                          <Component id="jResultadoText" min="-2" pref="1324" max="-2" attributes="0"/>
+                          <Component id="jTelaText" min="-2" max="-2" attributes="0"/>
+                          <Component id="jNumeroCPFText" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
@@ -262,7 +265,9 @@
                   <Component id="jResultadoText" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jMaisFuncionalidades" min="-2" pref="67" max="-2" attributes="0"/>
-                  <EmptySpace pref="204" max="32767" attributes="0"/>
+                  <EmptySpace pref="78" max="32767" attributes="0"/>
+                  <Component id="jButtonNovoCadastro" min="-2" pref="76" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -282,13 +287,13 @@
         <Component class="javax.swing.JLabel" name="jResultadoText">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b4" green="e0" red="c5" type="rgb"/>
+              <Color blue="b4" green="b4" red="e0" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="16" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="23" green="57" red="38" type="rgb"/>
+              <Color blue="23" green="23" red="57" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Frase"/>
             <Property name="horizontalTextPosition" type="int" value="10"/>
@@ -321,6 +326,34 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CPF: 000.000.000-00"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonNovoCadastro">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="b0" red="f9" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Novo Cadastro"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder roundedCorners="true">
+                  <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonNovoCadastroMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNovoCadastroActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jButton1.setContentAreaFilled(false);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
