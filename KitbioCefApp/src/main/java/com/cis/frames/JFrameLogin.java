@@ -8,6 +8,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import com.utils.Functions;
 import com.utils.Constants;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -78,7 +79,7 @@ public class JFrameLogin extends javax.swing.JFrame {
         jPasswordField.setBackground(new java.awt.Color(239, 245, 246));
         jPasswordField.setColumns(5);
         jPasswordField.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jPasswordField.setBorder(null);
+        jPasswordField.setBorder(new EmptyBorder(0, 10, 0, 0));
         jPasswordField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +89,7 @@ public class JFrameLogin extends javax.swing.JFrame {
 
         jUserField.setBackground(new java.awt.Color(239, 245, 246));
         jUserField.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jUserField.setBorder(null);
+        jUserField.setBorder(new EmptyBorder(0, 10, 0, 0));
         jUserField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jUserFieldActionPerformed(evt);

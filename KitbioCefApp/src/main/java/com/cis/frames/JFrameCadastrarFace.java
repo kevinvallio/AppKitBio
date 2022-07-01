@@ -66,10 +66,10 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
 
     public void setTexts() {
         
-        textBemVindoLine1 = "Bem-vindo ao sistema de cadastro de autenticação biométrica!";
-        textBemVindoLine2 = "Para mais funcionalidades e informações, acesse <font color='blue'><u>https://biometria.caixa</u></font> ou consulte o MN AD178.";
-        jBemVindoText.setBorder(new EmptyBorder(0, 20, 0, 0));
-        jBemVindoText.setText("<html>" + textBemVindoLine1 + "<br/>" + textBemVindoLine2 + "</html>");
+        //textBemVindoLine1 = "Bem-vindo ao sistema de cadastro de autenticação biométrica!";
+        //textBemVindoLine2 = "Para mais funcionalidades e informações, acesse <font color='blue'><u>https://biometria.caixa</u></font> ou consulte o MN AD178.";
+        //jBemVindoText.setBorder(new EmptyBorder(0, 20, 0, 0));
+        //jBemVindoText.setText("<html>" + textBemVindoLine1 + "<br/>" + textBemVindoLine2 + "</html>");
         
         
     }
@@ -92,22 +92,11 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jBackground = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jBemVindoText = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        try {
-            MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
-            mascaraCpf.setPlaceholderCharacter('_');
-            jCpfTextField = new javax.swing.JFormattedTextField(mascaraCpf);
-            jCpfTextField.setColumns(11);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jFooter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
 
@@ -176,81 +165,15 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(1366, 526));
 
-        jBemVindoText.setBackground(new java.awt.Color(197, 224, 180));
-        jBemVindoText.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jBemVindoText.setForeground(new java.awt.Color(56, 87, 35));
-        jBemVindoText.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBemVindoText.setText("Frase");
-        jBemVindoText.setOpaque(true);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/digital_logo.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-
-        jCpfTextField.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jCpfTextField.setForeground(new java.awt.Color(105, 195, 181));
-        jCpfTextField.setText("CPF");
-        jCpfTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(105, 195, 181)));
-        jCpfTextField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jCpfTextFieldMouseClicked(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(105, 195, 181));
-        jLabel2.setText("Digite o CPF:");
-
-        jButton2.setBackground(new java.awt.Color(105, 195, 181));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Consultar");
-        jButton2.setBorder(null);
-        jButton1.setContentAreaFilled(false);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jBemVindoText, javax.swing.GroupLayout.PREFERRED_SIZE, 1324, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(364, 364, 364)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addGap(0, 1366, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBemVindoText, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
-                .addContainerGap(222, Short.MAX_VALUE))
+            .addGap(0, 526, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -304,28 +227,6 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCpfTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCpfTextFieldMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCpfTextFieldMouseClicked
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-
-        cpf = jCpfTextField.getText();
-        // ************ VERIFICAR CPF *****************
-
-        this.setVisible(false);
-
-        JFrameIncluirAttCadastro cadFrame = new JFrameIncluirAttCadastro();
-        cadFrame.setSize(1366,768);
-        cadFrame.setVisible(true);
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -363,15 +264,10 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBackground;
-    private javax.swing.JLabel jBemVindoText;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jCamera;
-    private javax.swing.JTextField jCpfTextField;
     private javax.swing.JLabel jDataText;
     private javax.swing.JLabel jFooter;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLeitor;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
