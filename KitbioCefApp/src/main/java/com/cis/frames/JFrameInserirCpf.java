@@ -105,7 +105,7 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
         jBemVindoText = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         try {
-            MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
+            MaskFormatter mascaraCpf = new MaskFormatter(" ###.###.###-##");
             mascaraCpf.setPlaceholderCharacter('_');
             jCpfTextField = new javax.swing.JFormattedTextField(mascaraCpf);
             jCpfTextField.setColumns(11);
@@ -260,7 +260,7 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
