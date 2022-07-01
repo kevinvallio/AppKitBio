@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author CIS Eletrônica
+ * @author Guilherme
  */
 public final class JFrameCadastroConcluido extends javax.swing.JFrame {
     
