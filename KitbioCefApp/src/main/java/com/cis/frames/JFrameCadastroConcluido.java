@@ -6,6 +6,12 @@ package com.cis.frames;
 
 import static com.cis.frames.JFrameInserirCpf.cpf;
 import com.cis.frames.JFrameInserirCpf;
+import static com.cis.frames.JFrameLogin.perfil;
+import static com.cis.frames.JFrameLogin.usuario;
+import com.utils.Constants;
+import com.utils.Functions;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -16,14 +22,49 @@ public final class JFrameCadastroConcluido extends javax.swing.JFrame {
     
     String textResultado;
     String textFuncionalidades;
+    Boolean camera = true;
+    Boolean leitor = false;
     
     /**
      * Creates new form JFrameCadastroConcluido
      */
     public JFrameCadastroConcluido() {
         initComponents();
+        loadImages();
+        initHeader();
         setTexts(false); //Alterar para metodo de verificacao da Caixa
     }
+    
+    public void loadImages() {
+
+        ImageIcon footerImage = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\footer_complete.png");
+        ImageIcon footerImageResized = Functions.scaleImage(footerImage.getImage(), jPanel3.getWidth(), jPanel3.getHeight(), Constants.SCALE_SMOOTH);
+        jFooter.setIcon(footerImageResized);
+
+    }
+
+    public void initHeader() {
+        jDataText.setText(Functions.getHeaderData());
+        jUserName.setText("Olá, " + usuario);
+        jPerfil.setText("Perfil: " + perfil);
+
+        if (camera) {
+            jCamera.setText("Câmera conectada");
+            jCamera.setForeground(Color.black);
+        } else {
+            jCamera.setText("Câmera desconectada");
+            jCamera.setForeground(Color.red);
+        }
+
+        if (leitor) {
+            jLeitor.setText("Leitor biométrico conectado");
+            jLeitor.setForeground(Color.black);
+        } else {
+            jLeitor.setText("Leitor biométrico desconectado");
+            jLeitor.setForeground(Color.red);
+        }
+    }
+    
     /**
      * Parametro precisa ser alterado para a forma de verificacao da Caixa
      * @param args 
