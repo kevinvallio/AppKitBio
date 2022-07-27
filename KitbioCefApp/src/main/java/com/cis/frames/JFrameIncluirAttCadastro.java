@@ -6,6 +6,7 @@ package com.cis.frames;
 
 import static com.cis.frames.JFrameLogin.perfil;
 import static com.cis.frames.JFrameLogin.usuario;
+import static com.cis.frames.JFrameInserirCpf.camera;
 import com.utils.Constants;
 import com.utils.Functions;
 import java.awt.Color;
@@ -20,17 +21,19 @@ public final class JFrameIncluirAttCadastro extends javax.swing.JFrame{
     
     String textBemVindoLine1;
     String textBemVindoLine2;
-    Boolean camera = true;
+    //Boolean camera = false;
     Boolean leitor = false;
     
     /**
      * Creates new form JFrameIncluirAttCadastro
      */
     public JFrameIncluirAttCadastro() {
+        
         initComponents();
         loadImages();
         initHeader();
         setTexts();
+        
     }
     
     public void loadImages() {
@@ -69,7 +72,6 @@ public final class JFrameIncluirAttCadastro extends javax.swing.JFrame{
         textBemVindoLine2 = "Para mais funcionalidades e informações, acesse <font color='blue'><u>https://biometria.caixa</u></font> ou consulte o MN AD178.";
         jBemVindoText.setBorder(new EmptyBorder(0, 20, 0, 0));
         jBemVindoText.setText("<html>" + textBemVindoLine1 + "<br/>" + textBemVindoLine2 + "</html>");
-        
         
     }
 
@@ -304,6 +306,7 @@ public final class JFrameIncluirAttCadastro extends javax.swing.JFrame{
 
         JFrameLogin login = new JFrameLogin();
         login.setSize(360, 430);
+        login.setLocationRelativeTo(null);
         login.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -316,8 +319,9 @@ public final class JFrameIncluirAttCadastro extends javax.swing.JFrame{
 
         this.setVisible(false);
 
-        JFrameIncluirAttCadastro cadFrame = new JFrameIncluirAttCadastro();
+        JFrameCadastrarFace cadFrame = new JFrameCadastrarFace();
         cadFrame.setSize(1366,768);
+        cadFrame.setLocationRelativeTo(null);
         cadFrame.setVisible(true);
 
     }//GEN-LAST:event_jButtonIncluirAtualizarActionPerformed

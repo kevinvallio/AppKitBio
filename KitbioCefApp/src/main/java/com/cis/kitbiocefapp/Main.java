@@ -4,22 +4,38 @@
  */
 package com.cis.kitbiocefapp;
 
-import com.cis.frames.JFrameInserirCpf_1;
 import com.cis.frames.JFrameLogin;
-import com.cis.frames.tchatcha;
+import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author kevin
  */
 public class Main {
-    public static void main(String[] args) throws Throwable {
+    
+    private static final int DEBUG_ENABLE = 1;
+    private static final Logger logger = LogManager.getLogger(Main.class);
+    
+    //**************************************************************************
+    // Function fncShowDebugLogMsg
+    //**************************************************************************    
+    private static void fncShowDebugLogMsg(String strMessage){
+        if(DEBUG_ENABLE == 1){
+            System.out.println(strMessage);
+        }
+    }
+    
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> {
+            
+            JFrameLogin login = new JFrameLogin();
+            login.setLocationRelativeTo(null);
+            login.setSize(360,430);
+            login.setVisible(true);
         
-    JFrameLogin login = new JFrameLogin();
-    //tchatcha login = new tchatcha();
-    //JFrameInserirCpf_1 login = new JFrameInserirCpf_1();
-    login.setSize(360,430);
-    //login.setSize(1366,140);
-    login.setVisible(true);
-  }
+        });
+        
+    }
 }

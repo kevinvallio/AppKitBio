@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author kevin
  */
-public class JHeader extends javax.swing.JFrame {
+public class JFrameHeader extends javax.swing.JFrame {
 
     String usuario = "Kevin Vallio";
     String perfil = "Perfil 1";
@@ -22,7 +22,7 @@ public class JHeader extends javax.swing.JFrame {
     /**
      * Creates new form JHeader
      */
-    public JHeader() {
+    public JFrameHeader() {
         initComponents();
         setText();
     }
@@ -82,7 +82,6 @@ public class JHeader extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1366, 140));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -177,20 +176,21 @@ public class JHeader extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameHeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JHeader().setVisible(true);
+                new JFrameHeader().setVisible(true);
             }
         });
     }

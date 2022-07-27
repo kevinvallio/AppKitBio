@@ -16,6 +16,9 @@ import javax.swing.border.EmptyBorder;
  */
 public class JFrameLogin extends javax.swing.JFrame {
     
+    static JFrameGenericForm myMainJFrame;
+    private static JPanelInserirCpf  myInserirCpfJPanel;
+    
     static String usuario;
     static String senha;
     static String perfil;
@@ -60,6 +63,7 @@ public class JFrameLogin extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -211,9 +215,19 @@ public class JFrameLogin extends javax.swing.JFrame {
         
         this.setVisible(false);
         
-        JFrameInserirCpf cpfFrame = new JFrameInserirCpf();
-        cpfFrame.setSize(1366,768);
-        cpfFrame.setVisible(true);
+        myInserirCpfJPanel = new JPanelInserirCpf();
+        
+        //myMainJFrame = new JFrameGenericForm(myInserirCpfJPanel);
+        myMainJFrame = new JFrameGenericForm(myInserirCpfJPanel);
+        myMainJFrame.setSize(1366,768);
+        myMainJFrame.pack();
+        myMainJFrame.setLocationRelativeTo(null);
+        myMainJFrame.setVisible(true);
+        
+        //JFrameInserirCpf cpfFrame = new JFrameInserirCpf();
+        //cpfFrame.setSize(1366,768);
+        //cpfFrame.setLocationRelativeTo(null);
+        //cpfFrame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

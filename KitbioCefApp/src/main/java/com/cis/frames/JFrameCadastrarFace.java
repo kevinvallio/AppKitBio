@@ -2,6 +2,7 @@ package com.cis.frames;
 
 import static com.cis.frames.JFrameLogin.perfil;
 import static com.cis.frames.JFrameLogin.usuario;
+import static com.cis.frames.JFrameInserirCpf.cpf;
 import com.utils.Constants;
 import com.utils.Functions;
 import java.awt.Color;
@@ -21,6 +22,9 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
     
     String textBemVindoLine1;
     String textBemVindoLine2;
+    String textUltimaMsg;
+    String textPenultimaMsg;
+    String textAntepenultimaMsg;
     Boolean camera = true;
     Boolean leitor = false;
     
@@ -32,6 +36,7 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         loadImages();
         initHeader();
         setTexts();
+        
     }
     
     public void loadImages() {
@@ -39,7 +44,14 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         ImageIcon footerImage = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\footer_complete.png");
         ImageIcon footerImageResized = Functions.scaleImage(footerImage.getImage(), jPanel3.getWidth(), jPanel3.getHeight(), Constants.SCALE_SMOOTH);
         jFooter.setIcon(footerImageResized);
-
+        
+        ImageIcon imgStreaming = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\logo_caixa_1.png");
+        ImageIcon imgStreamingResized = Functions.scaleImage(imgStreaming.getImage(), jLabelImgStreaming.getWidth(), jLabelImgStreaming.getHeight(), Constants.SCALE_SMOOTH);
+        jLabelImgStreaming.setIcon(imgStreamingResized);
+        
+        ImageIcon imgCapturada = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\logo_caixa_1.png");
+        ImageIcon imgCapturadaResized = Functions.scaleImage(imgCapturada.getImage(), jLabelImgCapturada.getWidth(), jLabelImgCapturada.getHeight(), Constants.SCALE_SMOOTH);
+        jLabelImgCapturada.setIcon(imgCapturadaResized);
     }
     
     public void initHeader() {
@@ -66,11 +78,19 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
 
     public void setTexts() {
         
-        //textBemVindoLine1 = "Bem-vindo ao sistema de cadastro de autenticação biométrica!";
-        //textBemVindoLine2 = "Para mais funcionalidades e informações, acesse <font color='blue'><u>https://biometria.caixa</u></font> ou consulte o MN AD178.";
-        //jBemVindoText.setBorder(new EmptyBorder(0, 20, 0, 0));
-        //jBemVindoText.setText("<html>" + textBemVindoLine1 + "<br/>" + textBemVindoLine2 + "</html>");
+        jNumeroCPFText.setText("CPF:" + cpf);
+        jLabel1.setText("<HTML><U>Prévia da imagem facial</U></HTML>");
+        jLabel2.setText("<HTML><U>Orientações ao Cliente</U></HTML>");
+        jLabel3.setText("<HTML><U>Imagem capturada</U></HTML>");
+        jLabel4.setText("<HTML><U>Ações</U></HTML>");
         
+        textUltimaMsg = "Exibir aqui a última mensagem recebida da câmera";
+        textPenultimaMsg = "Exibir aqui a penúltima mensagem recebida da câmera";
+        textAntepenultimaMsg = "Exibir aqui a antepenúltima mensagem recebida da câmera";
+        
+        jTextArea1.setText(textUltimaMsg);
+        jTextArea2.setText(textPenultimaMsg);
+        jTextArea3.setText(textAntepenultimaMsg);
         
     }
 
@@ -92,12 +112,32 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jBackground = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jTelaText = new javax.swing.JLabel();
+        jNumeroCPFText = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabelImgStreaming = new javax.swing.JLabel();
+        jLabelImgCapturada = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jButtonIncluirAtualizar = new javax.swing.JButton();
+        jButtonIncluirAtualizar1 = new javax.swing.JButton();
+        jButtonIncluirAtualizar2 = new javax.swing.JButton();
+        jButtonIncluirAtualizar3 = new javax.swing.JButton();
+        jButtonIncluirAtualizar4 = new javax.swing.JButton();
+        jButtonIncluirAtualizar5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jFooter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -165,15 +205,277 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(1366, 526));
 
+        jTelaText.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTelaText.setForeground(new java.awt.Color(108, 176, 191));
+        jTelaText.setText("Você está em: Incluir e Atualizar Cadastro > Cadastrar Face");
+
+        jNumeroCPFText.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jNumeroCPFText.setForeground(new java.awt.Color(204, 204, 204));
+        jNumeroCPFText.setText("CPF: 000.000.000-00");
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(166, 166, 166));
+        jLabel1.setText("Prévia da imagem facial");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(166, 166, 166));
+        jLabel2.setText("Orientações ao Cliente");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(166, 166, 166));
+        jLabel4.setText("Ações");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(166, 166, 166));
+        jLabel3.setText("Imagem capturada");
+
+        jLabelImgStreaming.setText("jLabel5");
+
+        jLabelImgCapturada.setText("jLabel5");
+
+        jPanel4.setBackground(new java.awt.Color(180, 199, 231));
+        jPanel4.setMaximumSize(new java.awt.Dimension(54, 184));
+        jPanel4.setMinimumSize(new java.awt.Dimension(54, 184));
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(180, 199, 231));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Exibir aqui a última mensagem recebida da câmera");
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setAutoscrolls(false);
+        jTextArea1.setOpaque(false);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jTextArea2.setEditable(false);
+        jTextArea2.setBackground(new java.awt.Color(180, 199, 231));
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setRows(5);
+        jTextArea2.setText("Exibir aqui a última mensagem recebida da câmera");
+        jTextArea2.setWrapStyleWord(true);
+        jTextArea2.setAutoscrolls(false);
+        jTextArea2.setOpaque(false);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        jTextArea3.setEditable(false);
+        jTextArea3.setBackground(new java.awt.Color(180, 199, 231));
+        jTextArea3.setColumns(20);
+        jTextArea3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTextArea3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea3.setLineWrap(true);
+        jTextArea3.setRows(5);
+        jTextArea3.setText("Exibir aqui a última mensagem recebida da câmera");
+        jTextArea3.setWrapStyleWord(true);
+        jTextArea3.setAutoscrolls(false);
+        jTextArea3.setOpaque(false);
+        jScrollPane3.setViewportView(jTextArea3);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButtonIncluirAtualizar.setBackground(new java.awt.Color(249, 176, 0));
+        jButtonIncluirAtualizar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonIncluirAtualizar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIncluirAtualizar.setText("Iniciar Captura");
+        jButtonIncluirAtualizar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton1.setContentAreaFilled(false);
+        jButtonIncluirAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonIncluirAtualizarMouseClicked(evt);
+            }
+        });
+        jButtonIncluirAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirAtualizarActionPerformed(evt);
+            }
+        });
+
+        jButtonIncluirAtualizar1.setBackground(new java.awt.Color(249, 176, 0));
+        jButtonIncluirAtualizar1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonIncluirAtualizar1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIncluirAtualizar1.setText("Captura manual");
+        jButtonIncluirAtualizar1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton1.setContentAreaFilled(false);
+        jButtonIncluirAtualizar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonIncluirAtualizar1MouseClicked(evt);
+            }
+        });
+        jButtonIncluirAtualizar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirAtualizar1ActionPerformed(evt);
+            }
+        });
+
+        jButtonIncluirAtualizar2.setBackground(new java.awt.Color(249, 176, 0));
+        jButtonIncluirAtualizar2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonIncluirAtualizar2.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIncluirAtualizar2.setText("Reiniciar câmera");
+        jButtonIncluirAtualizar2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton1.setContentAreaFilled(false);
+        jButtonIncluirAtualizar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonIncluirAtualizar2MouseClicked(evt);
+            }
+        });
+        jButtonIncluirAtualizar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirAtualizar2ActionPerformed(evt);
+            }
+        });
+
+        jButtonIncluirAtualizar3.setBackground(new java.awt.Color(249, 176, 0));
+        jButtonIncluirAtualizar3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonIncluirAtualizar3.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIncluirAtualizar3.setText("Cadastrar digitais");
+        jButtonIncluirAtualizar3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton1.setContentAreaFilled(false);
+        jButtonIncluirAtualizar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonIncluirAtualizar3MouseClicked(evt);
+            }
+        });
+        jButtonIncluirAtualizar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirAtualizar3ActionPerformed(evt);
+            }
+        });
+
+        jButtonIncluirAtualizar4.setBackground(new java.awt.Color(30, 183, 230));
+        jButtonIncluirAtualizar4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonIncluirAtualizar4.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIncluirAtualizar4.setText("<html>Concluir cadastro<br/>sem impressões<br/>digitais</html>");
+        jButtonIncluirAtualizar4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButtonIncluirAtualizar4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setContentAreaFilled(false);
+        jButtonIncluirAtualizar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonIncluirAtualizar4MouseClicked(evt);
+            }
+        });
+        jButtonIncluirAtualizar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirAtualizar4ActionPerformed(evt);
+            }
+        });
+
+        jButtonIncluirAtualizar5.setBackground(new java.awt.Color(105, 195, 181));
+        jButtonIncluirAtualizar5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonIncluirAtualizar5.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIncluirAtualizar5.setText("Cancelar cadastro");
+        jButtonIncluirAtualizar5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton1.setContentAreaFilled(false);
+        jButtonIncluirAtualizar5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonIncluirAtualizar5MouseClicked(evt);
+            }
+        });
+        jButtonIncluirAtualizar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirAtualizar5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNumeroCPFText)
+                    .addComponent(jTelaText))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabelImgStreaming, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111)
+                        .addComponent(jLabelImgCapturada, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonIncluirAtualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonIncluirAtualizar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonIncluirAtualizar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonIncluirAtualizar3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonIncluirAtualizar4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonIncluirAtualizar5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(92, 92, 92))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTelaText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jNumeroCPFText)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelImgStreaming, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelImgCapturada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonIncluirAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonIncluirAtualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonIncluirAtualizar2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonIncluirAtualizar3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonIncluirAtualizar4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonIncluirAtualizar5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(142, 142, 142))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -197,7 +499,7 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, 1370, 1370, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
@@ -224,8 +526,70 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
 
         JFrameLogin login = new JFrameLogin();
         login.setSize(360, 430);
+        login.setLocationRelativeTo(null);
         login.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonIncluirAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizarMouseClicked
+
+    private void jButtonIncluirAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizarActionPerformed
+        // TODO add your handling code here:
+
+        this.setVisible(false);
+
+        JFrameCadastrarFace cadFaceFrame = new JFrameCadastrarFace();
+        cadFaceFrame.setSize(1366,768);
+        cadFaceFrame.setLocationRelativeTo(null);
+        cadFaceFrame.setVisible(true);
+    }//GEN-LAST:event_jButtonIncluirAtualizarActionPerformed
+
+    private void jButtonIncluirAtualizar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar1MouseClicked
+
+    private void jButtonIncluirAtualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar1ActionPerformed
+
+    private void jButtonIncluirAtualizar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar2MouseClicked
+
+    private void jButtonIncluirAtualizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar2ActionPerformed
+
+    private void jButtonIncluirAtualizar3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar3MouseClicked
+
+    private void jButtonIncluirAtualizar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar3ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        
+        JFrameCadastrarDigitais cadDigFrame = new JFrameCadastrarDigitais();
+        cadDigFrame.setSize(1366,768);
+        cadDigFrame.setLocationRelativeTo(null);
+        cadDigFrame.setVisible(true);
+    }//GEN-LAST:event_jButtonIncluirAtualizar3ActionPerformed
+
+    private void jButtonIncluirAtualizar4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar4MouseClicked
+
+    private void jButtonIncluirAtualizar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar4ActionPerformed
+
+    private void jButtonIncluirAtualizar5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar5MouseClicked
+
+    private void jButtonIncluirAtualizar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirAtualizar5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonIncluirAtualizar5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,14 +629,35 @@ public class JFrameCadastrarFace extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBackground;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonIncluirAtualizar;
+    private javax.swing.JButton jButtonIncluirAtualizar1;
+    private javax.swing.JButton jButtonIncluirAtualizar2;
+    private javax.swing.JButton jButtonIncluirAtualizar3;
+    private javax.swing.JButton jButtonIncluirAtualizar4;
+    private javax.swing.JButton jButtonIncluirAtualizar5;
     private javax.swing.JLabel jCamera;
     private javax.swing.JLabel jDataText;
     private javax.swing.JLabel jFooter;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelImgCapturada;
+    private javax.swing.JLabel jLabelImgStreaming;
     private javax.swing.JLabel jLeitor;
+    private javax.swing.JLabel jNumeroCPFText;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jPerfil;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel jTelaText;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JLabel jUserName;
     // End of variables declaration//GEN-END:variables
 }

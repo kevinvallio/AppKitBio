@@ -5,6 +5,16 @@
 package com.cis.frames;
 
 
+import cameraframe.CameraCallbackComplete;
+import cameraframe.CameraCallbackConnection;
+import cameraframe.CameraCallbackPosition;
+import cameraframe.CameraCallbackPreview;
+import cameraframe.CameraCapture;
+import static cameraframe.CameraResultsConst.CAMERA_ERROR_OK;
+import cameraframe.CameraUser;
+import cameraframe.JFrameCamera;
+import camerascanner.FaceImage;
+import camerasdk.objects.Image;
 import com.utils.Constants;
 import com.utils.Functions;
 import java.awt.Color;
@@ -14,36 +24,85 @@ import javax.swing.text.MaskFormatter;
 
 import static com.cis.frames.JFrameLogin.usuario;
 import static com.cis.frames.JFrameLogin.perfil;
+import static java.awt.Image.SCALE_SMOOTH;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author kevin
  */
-public final  class JFrameInserirCpf extends javax.swing.JFrame {
+public final  class JFrameInserirCpf extends javax.swing.JFrame implements CameraCallbackPosition, CameraCallbackConnection, CameraCallbackPreview, CameraCallbackComplete{
+    
+    private static final int DEBUG_ENABLE = 1;
+    private static final int TIME_RECONNECT = 3000;
+    
+    int intStatus;
+    boolean bolCameraControlInitialize = false;
+    boolean bolCameraControlStarted = false;
+    boolean bolCameraControlConnect = false;
+    boolean bolCameraControlFinalize = false;
+    CameraUser objCameraUser = new CameraUser();
+    Thread threadReconnet;
     
     static String cpf;
     
     String textBemVindoLine1;
     String textBemVindoLine2;
-    Boolean camera = true;
-    Boolean leitor = false;
+    static Boolean camera = false;
+    static Boolean leitor = false;
     
-
+    //**************************************************************************
+    // Function fncShowDebugLogMsg
+    //**************************************************************************    
+    private void fncShowDebugLogMsg(String strMessage){
+        if(DEBUG_ENABLE == 1){
+            System.out.println(strMessage);
+        }
+    }
+    
     /**
      * Creates new form JFrameInserirCpf
      */
     public JFrameInserirCpf() {
         initComponents();
+                
+        //CameraCapture.fncRegisterCallbackJFrame(this);
+        
+        try {
+            intStatus = objCameraUser.fncInitialize();            
+            if(intStatus == CAMERA_ERROR_OK){
+                bolCameraControlInitialize = true;
+                bolCameraControlFinalize = false;
+                System.out.println("camera iniciou");
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Erro no Initialize !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("camera nao iniciou");
+            }
+        }
+        catch(Exception ex){
+            fncShowDebugLogMsg("Exception: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Erro no Initialize - exception !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("camera inicar exception");
+        }
+        
         loadImages();
         initHeader();
         setTexts();
     }
-    
-    public boolean initComp(){
-         return true;
-    }
-    
+        
     public void loadImages() {
 
         ImageIcon footerImage = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\footer_complete.png");
@@ -81,7 +140,10 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
         jBemVindoText.setBorder(new EmptyBorder(0, 20, 0, 0));
         jBemVindoText.setText("<html>" + textBemVindoLine1 + "<br/>" + textBemVindoLine2 + "</html>");
         
-        
+    }
+    
+    public boolean getCamera(){
+        return camera;
     }
 
     /**
@@ -260,7 +322,7 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -311,6 +373,7 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
 
         JFrameLogin login = new JFrameLogin();
         login.setSize(360, 430);
+        login.setLocationRelativeTo(null);
         login.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -332,6 +395,7 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
         
         JFrameIncluirAttCadastro cadFrame = new JFrameIncluirAttCadastro();
         cadFrame.setSize(1366,768);
+        cadFrame.setLocationRelativeTo(null);
         cadFrame.setVisible(true);
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -362,6 +426,9 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(JFrameInserirCpf.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -369,6 +436,183 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame {
                 new JFrameInserirCpf().setVisible(true);
             }
         });
+    }
+    
+    // Callback Position
+    //@Override
+    public void eventCallbackPosition(String strEvent, int intResult) {
+        //lblPosicionamento.setText(strEvent);
+    }
+    
+    // Callback Connection
+    @Override
+    public void eventCallbackConnection(String strEvent, int intResult) {
+        
+        try {        
+        
+            Runnable runnableReconnect;
+            runnableReconnect = () -> {
+                //fncShowDebugLogMsg("Inside : " + Thread.currentThread().getName());
+                boolean bolCheckConnection = true;
+                while(bolCheckConnection == true){
+                    try {
+                        if(fncReconnect() == true){
+                            bolCheckConnection = false;
+                            bolCameraControlConnect = false;
+                            JOptionPane.showMessageDialog(null,"Camera CONECTADA a USB ! Liberando o uso !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        Thread.sleep(TIME_RECONNECT);
+                    } catch (InterruptedException ex) {
+                        fncShowDebugLogMsg("Exception: " + ex.getMessage());
+                    } catch (IOException ex) {
+                        Logger.getLogger(JFrameInserirCpf.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }; 
+            threadReconnet = new Thread(runnableReconnect);
+         
+            if("Camera Desconectada".equals(strEvent)){
+                fncShowDebugLogMsg("Recebeu callback de Camera Desconectada !!!");
+                camera = false;
+                initHeader();
+                if(bolCameraControlConnect == false){
+                    bolCameraControlConnect = true;                     
+                    if (JOptionPane.showConfirmDialog(null, 
+                                                      "Camera DESCONECTADA da USB ! Gostaria de tentar reconectar ?", "Capture Camera", 
+                                                      JOptionPane.YES_NO_OPTION,
+                                                      JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){                    
+                        //intStatus = objCameraUser.fncFinalize();
+                        //if(intStatus == CAMERA_ERROR_OK){                                    
+                        //    bolCameraControlInitialize = false;
+                        //}                        
+                        threadReconnet.start();
+                    }
+                }
+            }
+            else if ("Camera Conectada".equals(strEvent)){
+                fncShowDebugLogMsg("Recebeu callback de Camera Conectada !!!");
+                camera = true;
+                initHeader();
+            }
+            else{
+                fncShowDebugLogMsg("Evento desconhecido !!!");    
+            }  
+
+        }
+        catch(Exception ex){
+            fncShowDebugLogMsg("Exception: " + ex.getMessage());            
+        }          
+        
+    }
+    
+    
+    public Boolean fncReconnect() throws IOException, InterruptedException{
+        
+        Boolean bolReconnect = false;
+        
+        try{
+            
+            if(bolCameraControlFinalize == false){
+                bolCameraControlFinalize = true;
+                intStatus = objCameraUser.fncFinalize();
+                if(intStatus == CAMERA_ERROR_OK){                                    
+                    bolCameraControlInitialize = false;
+                }  
+                else{
+                    fncShowDebugLogMsg("Erro reconexao finalize !!!");
+                }          
+                Thread.sleep(500);
+            }
+
+            intStatus = objCameraUser.fncInitialize();
+            if(intStatus == CAMERA_ERROR_OK){
+                bolCameraControlInitialize = true;
+                bolCameraControlFinalize = false;
+                bolReconnect = true;
+            }        
+            else{
+                fncShowDebugLogMsg("Erro reconexao initialize !!!");
+            }             
+            
+        }
+        catch(Exception ex){
+            fncShowDebugLogMsg("Exception - " + ex.getMessage());
+        } 
+        
+        return bolReconnect;
+    }
+    
+    // Callback Preview
+    //@Override
+    public void eventCallbackPreview(Image faceImage) {
+        
+        BufferedImage img =  null;
+        java.awt.Image scaled = null;
+        ImageIcon icon = null;
+        
+        try {
+            if(faceImage.getRawImage() != null){
+                img = convertByteToImage(faceImage.getRawImage());
+                scaled = img.getScaledInstance(480,640 , SCALE_SMOOTH);
+                icon = new ImageIcon(scaled);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(JFrameCamera.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        img = null;
+        scaled = null;
+        icon = null;
+        faceImage = null;
+    }
+
+    // Callback Complete
+    //@Override
+    public void eventCallbackComplete(FaceImage faceImage, int status) {
+        
+        BufferedImage img =  null;
+        java.awt.Image scaled = null;
+        ImageIcon icon = null;
+        
+        try {
+            if(faceImage.getRawImage() != null){
+                img = convertByteToImage(faceImage.getRawImage());
+                scaled = img.getScaledInstance(480,640 , SCALE_SMOOTH);
+                icon = new ImageIcon(scaled);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(JFrameCamera.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        img = null;
+        scaled = null;
+        icon = null;
+        faceImage = null;
+        
+    }
+    
+    private BufferedImage convertByteToImage(byte[] rawImage) throws IOException {
+        
+        ByteArrayInputStream bis = new ByteArrayInputStream(rawImage);
+        Iterator<?> readers = ImageIO.getImageReadersByFormatName("jpg");
+ 
+        ImageReader reader = (ImageReader) readers.next();
+        Object source = bis; 
+        ImageInputStream iis = ImageIO.createImageInputStream(source); 
+        reader.setInput(iis, true);
+        ImageReadParam param = reader.getDefaultReadParam();
+ 
+        BufferedImage image = reader.read(0, param);
+        
+        bis = null;
+        readers = null;
+        reader = null;
+        source = null;
+        iis = null;
+        param = null;
+        
+        return image;
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
