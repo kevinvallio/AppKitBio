@@ -32,11 +32,11 @@ public class JFrameLogin extends javax.swing.JFrame {
     
     
     public void loadImages(){
-        ImageIcon logoCaixa = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\logo_caixa_1.png");
+        ImageIcon logoCaixa = new ImageIcon(".\\src\\main\\Resources\\logo_caixa_1.png");
         ImageIcon logoCaixaResized = Functions.scaleImage(logoCaixa.getImage(), jLogo1.getWidth(), jLogo1.getHeight(), Constants.SCALE_SMOOTH);
         jLogo1.setIcon(logoCaixaResized);
         
-        ImageIcon logoCertDig = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\icone_certificado_digital.png");
+        ImageIcon logoCertDig = new ImageIcon(".\\src\\main\\Resources\\icone_certificado_digital.png");
         ImageIcon logoCertDigResized = Functions.scaleImage(logoCertDig.getImage(), 25, 25, Constants.SCALE_SMOOTH); 
         jButton3.setIcon(logoCertDigResized);
     }
@@ -84,7 +84,7 @@ public class JFrameLogin extends javax.swing.JFrame {
         jPasswordField.setColumns(5);
         jPasswordField.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jPasswordField.setBorder(new EmptyBorder(0, 10, 0, 0));
-        jPasswordField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPasswordField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldActionPerformed(evt);
@@ -124,6 +124,11 @@ public class JFrameLogin extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jButton3.setText("Certificado Digital");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -178,7 +183,7 @@ public class JFrameLogin extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,6 +234,10 @@ public class JFrameLogin extends javax.swing.JFrame {
         //cpfFrame.setLocationRelativeTo(null);
         //cpfFrame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

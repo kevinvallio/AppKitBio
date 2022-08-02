@@ -8,19 +8,19 @@ import cameraframe.CameraCallbackConnection;
 import cameraframe.CameraCapture;
 import static cameraframe.CameraResultsConst.CAMERA_ERROR_OK;
 import cameraframe.CameraUser;
-import static com.cis.frames.JFrameInserirCpf.camera;
-import static com.cis.frames.JFrameInserirCpf.leitor;
 import static com.cis.frames.JFrameLogin.perfil;
 import static com.cis.frames.JFrameLogin.usuario;
 import com.utils.Constants;
 import com.utils.Functions;
 import fingerframe.FingerCallbackConnection;
+import fingerframe.FingerCapture;
 import static fingerframe.FingerResultsConst.FINGER_ERROR_OK;
 import fingerframe.FingerUser;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +37,9 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
     private static final int DEBUG_ENABLE = 1;
     private static final int TIME_RECONNECT = 3000;
     
+    static Boolean camera = false;
+    static Boolean leitor = false;
+    
     int intCameraStatus;
     int intFingerStatus;
     
@@ -44,12 +47,10 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
     boolean bolCameraControlStarted = false;
     boolean bolCameraControlConnect = false;
     boolean bolCameraControlFinalize = false;
-    static CameraUser objCameraUser = new CameraUser();
-    private WindowAdapter windowAdapter = null;
+    //static CameraUser objCameraUser = new CameraUser();
+    private final WindowAdapter windowAdapter = null;
     Thread threadReconnet;
     
-    //static FingerUser objFingerUser = new FingerUser();
-    //static FingerCapture objFingerCapture = new FingerCapture();
     boolean bolSensorControlInitialize = false;
     boolean bolSensorControlStarted = false;
     boolean bolSensorControlConnect = false;
@@ -73,19 +74,26 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
      */
     public JFrameTemplate() {
         
+        String userDirectory = Paths.get("")
+                .toAbsolutePath()
+                .toString();
+        System.out.println(userDirectory);
         this.fncRegisterListenerJFrameWindow();
         
-        //initCamera();
+        initCamera();
         initSensor();
     }
     
     
     public void initCamera(){
         
+        //*********************************************
+        // Registro de Callback para Evento de Conexão
+        //*********************************************
         CameraCapture.fncRegisterCallbackJFrame(this);
         
         try {
-            intCameraStatus = objCameraUser.fncInitialize();            
+            intCameraStatus = CameraUser.fncInitialize();            
             if(intCameraStatus == CAMERA_ERROR_OK){
                 bolCameraControlInitialize = true;
                 bolCameraControlFinalize = false;
@@ -96,7 +104,7 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
                 System.out.println("camera nao iniciou");
             }
         }
-        catch(Exception ex){
+        catch(HeadlessException | IOException ex){
             fncShowDebugLogMsg("Exception: " + ex.getMessage());
             JOptionPane.showMessageDialog(null,"Erro no Initialize - exception !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("camera inicar exception");
@@ -105,11 +113,11 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
     }
     
     public void initSensor(){
-        //esse gera o envento de captura completa 
-        //precisa do obj fingerUser, neles estão os métodos de acesso ao componente
-        //objFingerUser.fncRegisterCallbackJFrame(this);
-        //esse gera o envento de position e connection
-        FingerUser.fncRegisterCallbackJFrame(this);
+
+        //*********************************************
+        // Registro de Callback para Evento de Conexão
+        //*********************************************
+        FingerCapture.fncRegisterCallbackJFrame(this);
         
         try {            
             intFingerStatus = FingerUser.fncInitialize();
@@ -136,7 +144,7 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
     
     public void loadImages() {
 
-        ImageIcon footerImage = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\footer_complete.png");
+        ImageIcon footerImage = new ImageIcon(".\\src\\main\\Resources\\footer_complete.png");
         ImageIcon footerImageResized = Functions.scaleImage(footerImage.getImage(), jPanel3.getWidth(), jPanel3.getHeight(), Constants.SCALE_SMOOTH);
         jFooter.setIcon(footerImageResized);
 
@@ -550,9 +558,11 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
     // End of variables declaration//GEN-END:variables
 
     
-    // Callback Connection
+    //**************************************************************************
+    // Callback para Evento de Conexão/Desconexão da Camera
+    //**************************************************************************
     @Override
-    public void eventCallbackConnection(String strEvent, int intResult) {
+    public void eventCameraCallbackConnection(String strEvent, int intResult) {
         
         try {        
         
@@ -606,13 +616,15 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
             }  
 
         }
-        catch(Exception ex){
+        catch(HeadlessException ex){
             fncShowDebugLogMsg("Exception: " + ex.getMessage());            
         }          
         
     }
     
-    
+    //**************************************************************************
+    // Tentativa de Reconexão da Camera
+    //**************************************************************************     
     public Boolean fncCameraReconnect() throws IOException, InterruptedException{
         
         Boolean bolReconnect = false;
@@ -621,7 +633,7 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
             
             if(bolCameraControlFinalize == false){
                 bolCameraControlFinalize = true;
-                intCameraStatus = objCameraUser.fncFinalize();
+                intCameraStatus = CameraUser.fncFinalize();
                 if(intCameraStatus == CAMERA_ERROR_OK){                                    
                     bolCameraControlInitialize = false;
                 }  
@@ -631,7 +643,7 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
                 Thread.sleep(500);
             }
 
-            intCameraStatus = objCameraUser.fncInitialize();
+            intCameraStatus = CameraUser.fncInitialize();
             if(intCameraStatus == CAMERA_ERROR_OK){
                 bolCameraControlInitialize = true;
                 bolCameraControlFinalize = false;
@@ -642,68 +654,16 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
             }             
             
         }
-        catch(Exception ex){
+        catch(IOException | InterruptedException ex){
             fncShowDebugLogMsg("Exception - " + ex.getMessage());
         } 
         
         return bolReconnect;
     }
     
-    
-    private void fncRegisterListenerJFrameWindow(){
-        
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(null, 
-                                                  "Voce tem certeza que gostaria de sair da Aplicação ?", "Capture Camera", 
-                                                  JOptionPane.YES_NO_OPTION,
-                                                  JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){                    
-                        try {
-                            if(bolCameraControlInitialize == true){
-                                
-                                intCameraStatus = objCameraUser.fncStop();
-                                if(intCameraStatus == CAMERA_ERROR_OK){
-                                    bolCameraControlStarted = false;
-                                    
-                                    intCameraStatus = objCameraUser.fncFinalize();
-                                    if(intCameraStatus == CAMERA_ERROR_OK){                                    
-                                        bolCameraControlInitialize = false;
-                                        bolCameraControlFinalize = true;                                    
-                                    }
-                                    else{
-                                        JOptionPane.showMessageDialog(null,"Erro no Finalize !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
-                                    }                                    
-                                    
-                                }
-                                else{
-                                    JOptionPane.showMessageDialog(null,"Erro no StopCaptute !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
-                                }
-
-                            }
-                        }
-                        catch(Exception ex){
-                            fncShowDebugLogMsg("Exception: " + ex.getMessage());
-                            JOptionPane.showMessageDialog(null,"Erro no Finalize - exception !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        finally{
-                            if(threadReconnet.isAlive()){
-                                threadReconnet.stop();                                
-                            }
-                            if(threadReconnect.isAlive()){
-                                threadReconnect.stop();                                
-                            } 
-                            threadReconnet = null;
-                            threadReconnect = null;
-                            System.exit(0);
-                        }
-
-                }
-            }
-        });         
-        
-    }
-
+    //**************************************************************************
+    // Callback para Evento de Conexão/Desconexão do Sensor
+    //**************************************************************************    
     @Override
     public void eventFingerCallbackConnection(String strEvent, int intResult) {
         System.out.println("entrou callback");
@@ -761,6 +721,9 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
         
     }
     
+    //**************************************************************************
+    // Tentativa de Reconexão do Sensor
+    //**************************************************************************      
     public Boolean fncFingerReconnect() throws IOException, NoSuchAlgorithmException, InterruptedException{
         
         Boolean bolReconnect = false;
@@ -800,12 +763,62 @@ public class JFrameTemplate extends javax.swing.JFrame implements CameraCallback
         
         return bolReconnect;
     }
-    /*
-    @Override
-    public void eventCallback(FingerCefDigital objDigital, int result) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        System.out.println("Kevin - operacao completa template");
-        fncShowDebugLogMsg("OPERAÇÃO COMPLETA...");
-    }
-    */
+
+    //**************************************************************************
+    // Listener de Fechamento do Form
+    //**************************************************************************     
+    private void fncRegisterListenerJFrameWindow(){
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(null, 
+                                                  "Voce tem certeza que gostaria de sair da Aplicação ?", "Capture Camera", 
+                                                  JOptionPane.YES_NO_OPTION,
+                                                  JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){                    
+                        try {
+                            if(bolCameraControlInitialize == true){
+                                
+                                intCameraStatus = CameraUser.fncStop();
+                                if(intCameraStatus == CAMERA_ERROR_OK){
+                                    bolCameraControlStarted = false;
+                                    
+                                    intCameraStatus = CameraUser.fncFinalize();
+                                    if(intCameraStatus == CAMERA_ERROR_OK){                                    
+                                        bolCameraControlInitialize = false;
+                                        bolCameraControlFinalize = true;                                    
+                                    }
+                                    else{
+                                        JOptionPane.showMessageDialog(null,"Erro no Finalize !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
+                                    }                                    
+                                    
+                                }
+                                else{
+                                    JOptionPane.showMessageDialog(null,"Erro no StopCaptute !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
+                                }
+
+                            }
+                        }
+                        catch(Exception ex){
+                            fncShowDebugLogMsg("Exception: " + ex.getMessage());
+                            JOptionPane.showMessageDialog(null,"Erro no Finalize - exception !","Camera Status", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        finally{
+                            if(threadReconnet.isAlive()){
+                                threadReconnet.stop();                                
+                            }
+                            if(threadReconnect.isAlive()){
+                                threadReconnect.stop();                                
+                            } 
+                            threadReconnet = null;
+                            threadReconnect = null;
+                            System.exit(0);
+                        }
+
+                }
+            }
+        });         
+        
+    }    
+    
 }

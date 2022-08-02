@@ -19,7 +19,7 @@ public class ImageBackground {
     public static void main(String args[]) 
     {
         JFrame frame = new JFrame();
-        final ImageIcon icon = new ImageIcon("E:\\ciswk_git\\KitbioCEFApp\\KitbioCefApp\\src\\main\\Resources\\header.png");
+        final ImageIcon icon = new ImageIcon(".\\src\\main\\Resources\\header.png");
         ImageIcon headerLogoResized = Functions.scaleImage(icon.getImage(), 1366, 138, Constants.SCALE_SMOOTH);
 
         JPanel text = new JPanel()

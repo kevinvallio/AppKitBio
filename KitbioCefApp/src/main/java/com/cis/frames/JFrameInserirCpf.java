@@ -440,13 +440,13 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame implements Camer
     
     // Callback Position
     //@Override
-    public void eventCallbackPosition(String strEvent, int intResult) {
+    public void eventCameraCallbackPosition(String strEvent, int intResult) {
         //lblPosicionamento.setText(strEvent);
     }
     
     // Callback Connection
     @Override
-    public void eventCallbackConnection(String strEvent, int intResult) {
+    public void eventCameraCallbackConnection(String strEvent, int intResult) {
         
         try {        
         
@@ -544,7 +544,7 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame implements Camer
     
     // Callback Preview
     //@Override
-    public void eventCallbackPreview(Image faceImage) {
+    public void eventCameraCallbackPreview(Image faceImage) {
         
         BufferedImage img =  null;
         java.awt.Image scaled = null;
@@ -568,7 +568,7 @@ public final  class JFrameInserirCpf extends javax.swing.JFrame implements Camer
 
     // Callback Complete
     //@Override
-    public void eventCallbackComplete(FaceImage faceImage, int status) {
+    public void eventCameraCallbackComplete(FaceImage faceImage, int status) {
         
         BufferedImage img =  null;
         java.awt.Image scaled = null;
